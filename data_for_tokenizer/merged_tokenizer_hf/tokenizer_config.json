@@ -1,0 +1,10 @@
+{
+  "added_tokens_decoder": {},
+  "clean_up_tokenization_spaces": false,
+  "eos_token": "</s>",
+  "model_max_length": 1000000000000000019884624838656,
+  "pad_token": "<unk>",
+  "padding_side": "left",
+  "tokenizer_class": "ChatGLMTokenizer",
+  "unk_token": "<unk>"
+}

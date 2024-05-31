@@ -1,0 +1,2 @@
+- 日文wiki：[izumi-lab/wikipedia-ja-20230720](https://huggingface.co/datasets/izumi-lab/wikipedia-ja-20230720)，只下载第0个part，完成后改名为hf_izumi-lab_wikipedia-ja-20230720_part0.parquet放入data_for_tokenizer文件夹内。转为txt后有861M。
+- 青空文库：[globis-university/aozorabunko-clean](https://huggingface.co/datasets/globis-university/aozorabunko-clean)，下载整个aozorabunko-dedupe-clean.jsonl.gz文件，完成后改名为hf_globis-university_aozorabunko-clean.jsonl放入data_for_tokenizer文件夹内。截取前6000篇转为txt后有199M。
