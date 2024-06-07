@@ -10,8 +10,16 @@ tokenizer = ChatGLMTokenizer.from_pretrained(CHATGLM_RESIZED_CODE_DIR)
 # load original model
 model = ChatGLMForConditionalGeneration.from_pretrained(CHATGLM_ORIGIN_MODEL_DIR, device_map='cuda:0', torch_dtype=torch.float16)
 
-# resize model and modify config
+# resize input and output embeddings
 model.resize_token_embeddings(len(tokenizer), pad_to_multiple_of=64)
+
+# reinit input embedding with avg weight
+embed_weight = model.base_model.embedding.word_embeddings.weight.data
+embedding_dim = embed_weight.size(1)
+avg_weight = embed_weight[:64798].mean(dim=0, keepdim=True)
+embed_weight[64798:] = avg_weight
+
+# modify config
 model.config.padded_vocab_size = model.get_input_embeddings().weight.shape[0]
 model.config.name_or_path = 'dummy-foo/chatglm3-japanese-zero'
 print(f'tokenizer size: {len(tokenizer)}, pad_to_multiple_of=64, model embedding size: {model.get_input_embeddings().weight.shape}')

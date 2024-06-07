@@ -1,0 +1,68 @@
+{
+  "wikipedia_ja": {
+    "hf_hub_url": "izumi-lab/wikipedia-ja-20230720",
+    "columns": {
+      "prompt": "text"
+    }
+  },
+  "aozorabunko_clean": {
+    "hf_hub_url": "globis-university/aozorabunko-clean",
+    "columns": {
+      "prompt": "text"
+    }
+  },
+  "wikipedia_zh": {
+    "hf_hub_url": "pleisto/wikipedia-cn-20230720-filtered",
+    "columns": {
+      "prompt": "completion"
+    }
+  },
+  "wikitext": {
+    "hf_hub_url": "wikitext",
+    "subset": "wikitext-103-v1",
+    "columns": {
+      "prompt": "text"
+    }
+  },
+  "oasst2-chat-68k-ja": {
+    "hf_hub_url": "kunishou/oasst2-chat-68k-ja",
+    "formatting": "sharegpt"
+  },
+  "databricks-dolly-15k-ja": {
+    "hf_hub_url": "kunishou/databricks-dolly-15k-ja"
+  },
+  "japanese_hh-rlhf-49k": {
+    "hf_hub_url": "fujiki/japanese_hh-rlhf-49k"
+  },
+  "ichikara-instruction": {
+    "hf_hub_url": "p1atdev/ichikara-instruction",
+    "subset": "20231221-003",
+    "columns": {
+      "prompt": "text",
+      "response": "output"
+    }
+  },
+  "alpaca-zh": {
+    "hf_hub_url": "shibing624/alpaca-zh"
+  },
+  "ruozhiba": {
+    "hf_hub_url": "LooksJuicy/ruozhiba",
+    "columns": {
+      "prompt": "instruction",
+      "response": "output"
+    }
+  },
+  "wikiqa": {
+    "hf_hub_url": "wiki_qa",
+    "columns": {
+      "prompt": "question",
+      "response": "answer"
+    }
+  },
+  "codealpaca": {
+    "hf_hub_url": "sahil2801/CodeAlpaca-20k"
+  },
+  "python_code_instructions_18k_alpaca": {
+    "hf_hub_url": "iamtarun/python_code_instructions_18k_alpaca"
+  }
+}
