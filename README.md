@@ -1,21 +1,24 @@
 # ChatGLM3-Japanese
 [ChatGLM3-6B](https://github.com/THUDM/ChatGLM3)是一个中英双语大模型，本项目为ChatGLM3-6B加入日文能力。  
 
-step1-4是扩词表和resize模型（done），step5-7是训练resize后的模型（doing）。
+step1-4是扩词表和resize模型，step5-6是训练resize后的模型。
 
 HuggingFace链接：
-- [ChatGLM3-Japanese-Zero]( https://huggingface.co/dummy-foo/ChatGLM3-Japanese-Zero )：经过扩词表和resize后的模型，保留了ChatGLM3的中英文能力，尚无日文能力，但因为编码效率高，适合在日文语料上训练。（done）
-- ChatGLM3-Japanese：对ChatGLM3-Japanese-Zero进行日文语料增量预训练和指令微调的模型，可以日文对话。（doing）
+- [ChatGLM3-Japanese-Zero]( https://huggingface.co/dummy-foo/ChatGLM3-Japanese-Zero )：经过扩词表和resize后的模型，保留了ChatGLM3的中英文能力，尚无日文能力，但因为编码效率高，适合在日文语料上训练。
+- [ChatGLM3-Japanese](https://huggingface.co/dummy-foo/ChatGLM3-Japanese)：对ChatGLM3-Japanese-Zero进行日文语料增量预训练和指令微调的模型，可以日文对话。
 
 
 ## 安装依赖
+若只需要运行step1-4，即只需要训练tokenizer，则如下安装：
 ```
 pip install -r requirements.txt
 ```
+若需要运行step5-6，即增量预训练和指令微调，因本仓库使用[LLaMA-Factory](https://github.com/hiyouga/LLaMA-Factory)框架，本质就是要安装它的依赖，方便起见整理在了requirements_llama_factory.txt中，如下安装：
+``` 
+pip install -r requirements_llama_factory.txt
+```
 
 ## 运行代码
-在run目录下执行
-
 ### step1 训练日文tokenizer
 使用1GB日文语料（800MB日文wiki + 200MB青空文库）训练日文tokenizer，使用sentencepiece包提供的BPE算法，词表20000.
 ```
@@ -117,11 +120,27 @@ Q：すみません、ちょっとお聞きしたいことがあるんですが�
 tokens: ['▁', '恥', 'の多い', '生涯', 'を送', 'って', '来ました', '。', '自分に', 'は', '、', '人間の', '生活', 'というもの', 'が', '、', '見', '当', 'つかない', 'のです', '。']
 ```
 
-### step5 freeze其他参数训练embedding
-doing
 
-### step6 增量预训练
-doing
+### step5 增量预训练
+使用1B tokens进行增量预训练，日文、中文、英文占比分别约76%、12%、12%，deepseed-zero2，四卡4090约60小时。
 
-### step7 指令微调
-doing
+单卡训练（供单步调试）
+``` 
+python step5_train_pt_single_gpu.py
+```
+多卡训练（供真实运行）
+```
+sh step5_train_pt_multi_gpu.sh
+```
+
+### step6 指令微调
+使用22万条指令数据集进行指令微调，日文、中文、英文、代码占比分别约52%、22%、9%、17%，deepseed-zero2，四卡4090约4.5小时  
+
+单卡训练（供单步调试）
+``` 
+python step6_train_sft_single_gpu.py
+```
+多卡训练（供真实运行）
+```
+sh step6_train_sft_multi_gpu.sh
+```
